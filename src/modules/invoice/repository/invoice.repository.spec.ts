@@ -5,6 +5,7 @@ import Invoice from "../domain/invoice.entity";
 import InvoiceItems from "../value-object/items.entity";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import InvoiceRepository from "./invoice.repository";
+import ProductModel from "./product-items.model";
 
 const ItemsProps1 = {
     name: 'Ball',
@@ -28,7 +29,7 @@ describe("Invoice Repository test", () => {
         sync: { force: true }
       })
   
-      sequelize.addModels([InvoiceModel])
+      sequelize.addModels([InvoiceModel, ProductModel])
       await sequelize.sync()
     })
   
@@ -63,7 +64,7 @@ describe("Invoice Repository test", () => {
         const invoiceRepository = new InvoiceRepository()
         await invoiceRepository.generate(invoice)
 
-        const invoiceDb = await InvoiceModel.findOne( { where: { id: "1" } } )        
+        const invoiceDb = await InvoiceModel.findOne( { where: { id: "1" }, include: ['items'] } )  
 
         expect(invoiceDb).toBeDefined()
         expect(invoiceDb.id).toEqual("1")
