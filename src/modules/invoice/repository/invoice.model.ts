@@ -1,11 +1,5 @@
-import { DataTypes } from "sequelize";
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
-
-interface Item {
-    itemId: string;
-    itemName: string;
-    itemPrice: number;
-}
+import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import ProductModel from "./product-items.model";
 
 @Table({
     tableName: 'invoices',
@@ -47,15 +41,6 @@ export default class InvoiceModel extends Model {
     @Column({ allowNull: false })
     updatedAt: Date
 
-    @Column({ 
-        type: DataTypes.JSON(),
-        allowNull: false,
-        defaultValue: []
-    })
-    items: Item[]
-
-    constructor(values?: any, options?: any) {
-        super(values, options);
-        this.items = this.items || [];
-    }
+    @HasMany(() => ProductModel, { foreignKey: "invoiceId", as: "items"})
+    declare items: ProductModel[]
 }
