@@ -1,7 +1,7 @@
 import BaseEntity from "../../@shared/domain/entity/base.entity";
 import Id from "../../@shared/domain/value-object/id.value-object";
-import { Client } from "./client.entity";
-import { Product } from "./product.entity";
+import Client from "./client.entity";
+import Product from "./product.entity";
 
 type OrderProps = {
   id?: Id;
@@ -10,7 +10,7 @@ type OrderProps = {
   status?: string;
 };
 
-export class Order extends BaseEntity {
+export default class Order extends BaseEntity {
   private _client: Client;
   private _products: Product[];
   private _status: string;
@@ -22,26 +22,25 @@ export class Order extends BaseEntity {
     this._status = props.status || "pending";
   }
 
-  get client() {
-    return this._client;
-  }
-
-  get products() {
-    return this._products;
-  }
-
-  get status() {
-    return this._status;
-  }
-
-  approved() {
+  approved(): void {
     this._status = "approved";
   }
 
-  get total() {
-    return this._products.reduce(
-      (total, product) => total + product.salesPrice,
-      0
-    );
+  get client(): Client {
+    return this._client;
+  }
+
+  get products(): Product[] {
+    return this._products;
+  }
+
+  get status(): string {
+    return this._status;
+  }
+
+  get total(): number {
+    return this._products.reduce((total, product) => {
+      return total + product.salesPrice;
+    }, 0);
   }
 }

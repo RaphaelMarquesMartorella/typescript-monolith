@@ -1,14 +1,16 @@
-export interface IProductTypes { productId: string }
-
-export interface IPlaceOrderInputDto {
-    clientId: string;
-    products: IProductTypes[]
+export interface PlaceOrderInputDto {
+  clientId: string;
+  products: {
+    productId: string;
+  }[];
 }
 
-export interface IPlaceOrderOutputDto {
-    id: string;
-    invoiceId: string;
-    status: string;
-    total: number;
-    products: IProductTypes[]
+export interface PlaceOrderOutputDto {
+  id: string;
+  invoiceId: string;
+  status: string;
+  total: number;
+  products: {
+    productId: string;
+  }[];
 }
