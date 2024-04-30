@@ -1,9 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
-import Id from "../../@shared/domain/value-object/id.value-object";
 import ClientAdmFacadeFactory from "../factory/facade.factory";
-import ProductAdmFacadeFactory from "../factory/facade.factory";
 import { ClientModel } from "../repository/client.model";
-import ClientAdmFacade from "./client-adm.facade";
 
 describe("ClientAdmFacade test", () => {
   let sequelize: Sequelize;

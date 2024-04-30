@@ -22,7 +22,7 @@ describe("PaymentFacade test", () => {
   });
 
   it("should create a transaction", async () => {
-    // const repository = new TransactionRepostiory();
+    // const repository = new TransactionRepository();
     // const usecase = new ProcessPaymentUseCase(repository);
     // const facade = new PaymentFacade(usecase);
 

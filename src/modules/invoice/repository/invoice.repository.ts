@@ -33,7 +33,7 @@ export default class InvoiceRepository implements InvoiceGateway {
       }
     );
   }
-  find(id: string): Promise<invoiceEntity> {
+  async find(id: string): Promise<invoiceEntity> {
     return InvoiceModel.findOne({
       where: {
         id,

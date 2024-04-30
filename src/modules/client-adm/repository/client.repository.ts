@@ -1,6 +1,5 @@
 import Id from "../../@shared/domain/value-object/id.value-object";
 import Address from "../../invoice/domain/address.vo";
-import ProductGateway from "../../product-adm/gateway/product.gateway";
 import Client from "../domain/client.entity";
 import ClientGateway from "../gateway/client.gateway";
 import { ClientModel } from "./client.model";

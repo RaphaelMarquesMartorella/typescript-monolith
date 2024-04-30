@@ -1,5 +1,4 @@
 import UseCaseInterface from "../../@shared/usecase/use-case.interface";
-import InvoiceGateway from "../gateway/invoice.gateway";
 import InvoiceFacadeInterface, {
   FindInvoiceFacadeOutputDTO,
   GenerateInvoiceFacadeInputDto,
@@ -8,7 +7,6 @@ import InvoiceFacadeInterface, {
 
 export default class InvoiceFacade implements InvoiceFacadeInterface {
   constructor(
-    private _invoiceRepository: InvoiceGateway,
     private _generateInvoiceUseCase: UseCaseInterface,
     private _findInvoiceUseCase: UseCaseInterface
   ) {}
