@@ -1,7 +1,8 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import cors from 'cors'
-import router from '../infrastructure/routers/product-router';
+import productRouter from '../infrastructure/routers/products/product-router';
+import clientRouter from '../infrastructure/routers/clients/client-router';
 
 class Server {
 	app = express();
@@ -15,7 +16,8 @@ class Server {
 
 	start() {
 		this.applyMiddlewares();
-		this.app.use('/api/v1/', router)
+		this.app.use('/api/v1/', productRouter)
+		this.app.use('/api/v1/', clientRouter)
 		this.app.listen(this.port, async () => {
 			console.log(`Server listening on port ${this.port}`);
         });
