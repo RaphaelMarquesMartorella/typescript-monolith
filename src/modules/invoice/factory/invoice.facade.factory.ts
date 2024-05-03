@@ -11,7 +11,6 @@ export default class InvoiceFacadeFactory {
     const findInvoiceUseCase = new FindInvoiceUseCase(repository);
 
     return new InvoiceFacade(
-      repository,
       generateInvoiceUseCase,
       findInvoiceUseCase
     );

@@ -10,7 +10,6 @@ export default class OrderModel extends Model {
     @Column({allowNull: false})
     declare id: string
 
-    @PrimaryKey
     @Column({allowNull: false})
     declare clientId: string
 
