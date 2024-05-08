@@ -1,4 +1,3 @@
-import { threadId } from "worker_threads";
 import Id from "../../../modules/@shared/domain/value-object/id.value-object";
 import Client from "../../../modules/client-adm/domain/client.entity";
 import ClientAdmFacadeFactory from "../../../modules/client-adm/factory/facade.factory";

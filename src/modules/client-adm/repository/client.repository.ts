@@ -25,7 +25,7 @@ export default class ClientRepository implements ClientGateway {
     const client = await ClientModel.findOne({
       where: { id },
     });
-
+    
     if (!client) {
       throw new Error(`Client with id ${id} not found`);
     }
