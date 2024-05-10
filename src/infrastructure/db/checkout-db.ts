@@ -10,9 +10,9 @@ export default class CheckOutDb {
         
         this.sequelize = new Sequelize({
         dialect: "sqlite",
-        storage: ":memory:",
+        storage: "database.sqlite",
         logging: false,
-        sync: { force: true },
+        sync: { force: false },
         });
             
         await this.sequelize.addModels([ClientModel, OrderModel, ProductModel]);

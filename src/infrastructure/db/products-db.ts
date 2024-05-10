@@ -7,7 +7,7 @@ export default class ProductsDb {
     public async Initialize() {
         this.sequelize = new Sequelize({
         dialect: "sqlite",
-        storage: ":memory:",
+        storage: "database.sqlite",
         logging: false,
         sync: { force: true },
     });

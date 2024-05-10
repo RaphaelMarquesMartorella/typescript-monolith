@@ -29,6 +29,9 @@ export default class CheckOutValidator {
             clientId: this.validatorDto.clientId,
             products: this.validatorDto.products
         }
-        return validateProducts.execute(placeOrderInputDto);
+
+        const res = await validateProducts.execute(placeOrderInputDto);
+        
+        return res;
     }
 }

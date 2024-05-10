@@ -1,5 +1,5 @@
 export interface AddClientInputDto {
-  id?: string;
+  id: string;
   name: string;
   document: string;
   email: string;

@@ -21,11 +21,11 @@ export default class ClientRepository implements ClientGateway {
       updatedAt: new Date(),
     });
   }
-  async find(id: string): Promise<Client> {
+  async find(id: string): Promise<Client> {    
     const client = await ClientModel.findOne({
       where: { id },
     });
-    
+
     if (!client) {
       throw new Error(`Client with id ${id} not found`);
     }

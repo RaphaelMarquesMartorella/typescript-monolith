@@ -81,6 +81,7 @@ export default class ClientValidator {
             this.client = new Client(clientProps)
 
             const inputFacadeDto: AddClientInputDto = {
+                id: this.client.id.id,
                 name: this.name, document:this.document, email: this.email,
                 street: this.street,
                 number: this.number,

@@ -32,7 +32,7 @@ export default class ClientsController {
                 state,
                 zipCode)
 
-                const client = validate.Validate()
+                const client = await validate.Validate()
 
         
                     res.json({
@@ -49,22 +49,7 @@ export default class ClientsController {
                             zipCode: client.address.zipCode,
                         }
                     })
-                    console.log({
-                        id: client.id,
-                        name: client.name,
-                        document: client.document,
-                        email: client.email,
-                        address: {
-                            street: client.address.street,
-                            number: client.address.number,
-                            complement: client.address.complement,
-                            city: client.address.city,
-                            state: client.address.state,
-                            zipCode: client.address.zipCode,
-                        }
-                    });
                     
-                
         } catch (error) {
             res.json({error: "Internal server error"});
             console.log(error);
