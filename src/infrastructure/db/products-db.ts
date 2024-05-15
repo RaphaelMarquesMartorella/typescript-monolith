@@ -9,7 +9,7 @@ export default class ProductsDb {
         dialect: "sqlite",
         storage: "database.sqlite",
         logging: false,
-        sync: { force: true },
+        sync: { force: false },
     });
       
         await this.sequelize.addModels([ProductModel]);

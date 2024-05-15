@@ -28,12 +28,13 @@ export default class ProductValidator {
     if(this.name !== "" && this.description !== "" && this.purchasePrice > 0 && this.stock && this.stock > 0) {
 
       const productProps:ProductProps = { name: this.name, description: this.description, purchasePrice: this.purchasePrice, stock: this.stock };
-  
+
+      const product = new Product(productProps)
+
       const inputFacadeDto: AddProductFacadeInputDto = {
-        name: this.name, description: this.description, purchasePrice: this.purchasePrice, stock: this.stock
+        id: product.id.id, name: this.name, description: this.description, purchasePrice: this.purchasePrice, stock: this.stock
       }
       
-      const product = new Product(productProps)
       const productAdmFacadeFactory = ProductAdmFacadeFactory.create()
       productAdmFacadeFactory.addProduct(inputFacadeDto)
       return product

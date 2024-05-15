@@ -59,7 +59,7 @@ export default class ClientValidator {
         this.zipCode = zipCode
     }
 
-    Validate(): Client {
+    async Validate(): Promise<Client> {
         if(this.name && this.document && this.email && this.street && this.number && this.complement && this.city && this.state && this.zipCode) {
             const addressProps: AddressProps = {
                 street: this.street,
@@ -92,7 +92,7 @@ export default class ClientValidator {
             }
 
             const clientAdmFacadeFactory = ClientAdmFacadeFactory.create()
-            clientAdmFacadeFactory.add(inputFacadeDto)
+            await clientAdmFacadeFactory.add(inputFacadeDto)
 
             return this.client;
     }

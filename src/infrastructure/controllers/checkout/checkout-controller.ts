@@ -13,7 +13,6 @@ export default class CheckOutController {
     
             const data: ValidatorDto = req.body;
             
-    
             const validator = new CheckOutValidator(data);
     
             const checkout = await validator.Validate();
