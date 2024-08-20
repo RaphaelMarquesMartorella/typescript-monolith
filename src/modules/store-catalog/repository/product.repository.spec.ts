@@ -1,20 +1,25 @@
 import { Sequelize } from "sequelize-typescript";
 import ProductModel from "./product.model";
+import { ProductModel as ProductAdmModel } from "../../product-adm/repository/product.model";
 import ProductRepository from "./product.repository";
-
+import Id from "../../@shared/domain/value-object/id.value-object";
+import Product from "../domain/product.entity";
+import { Umzug } from "umzug";
+import { migrator } from "../../../infrastructure/config-migrations/migrator";
 describe("ProductRepository test", () => {
   let sequelize: Sequelize;
+  let migration: Umzug<any>;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
       dialect: "sqlite",
-      storage: ":memory:",
+      storage: "database.sqlite",
       logging: false,
-      sync: { force: true },
     });
-
-    await sequelize.addModels([ProductModel]);
-    await sequelize.sync();
+    sequelize.addModels([ProductAdmModel, ProductModel])
+    await sequelize.sync({ force: true  });
+        migration = migrator(sequelize)
+        await migration.up()
   });
 
   afterEach(async () => {
@@ -66,4 +71,43 @@ describe("ProductRepository test", () => {
     expect(product.description).toBe("Description 1");
     expect(product.salesPrice).toBe(100);
   });
+  it("should save a product in ProductModel", async () => {
+    await ProductAdmModel.create({
+      id: "1",
+      productId: "prod-1",
+      name: "Product 1",
+      description: "Description 1",
+      purchasePrice: 100,
+      stock: 10,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    const modelResult = await ProductAdmModel.findOne({
+      where: { id: "1" },
+    });
+
+    const product = new Product({
+      id: new Id(),
+      productId: new Id(modelResult.productId),
+      name: "Product 2",
+      description: "Description 2",
+      salesPrice: 200,
+    });
+
+    const productRepository = new ProductRepository();
+    await productRepository.save(product);
+
+    const savedProduct = await ProductModel.findOne({
+      where: { id: product.id.id },
+    });
+
+    expect(savedProduct).toBeDefined();
+    expect(savedProduct.id).toBe(product.id.id);
+    expect(savedProduct.productId).toBe(product.productId.id);
+    expect(savedProduct.name).toBe(product.name);
+    expect(savedProduct.description).toBe(product.description);
+    expect(savedProduct.salesPrice).toBe(product.salesPrice);
+  });
+
 });

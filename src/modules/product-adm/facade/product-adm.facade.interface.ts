@@ -1,5 +1,6 @@
 export interface AddProductFacadeInputDto {
   id?: string;
+  productId?: string;
   name: string;
   description: string;
   purchasePrice: number;

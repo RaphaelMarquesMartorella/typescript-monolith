@@ -1,5 +1,6 @@
 export interface AddProductInputDto {
   id?: string;
+  productId?: string;
   name: string;
   description: string;
   purchasePrice: number;
@@ -8,6 +9,7 @@ export interface AddProductInputDto {
 
 export interface AddProductOutputDto {
   id: string;
+  productId: string;
   name: string;
   description: string;
   purchasePrice: number;

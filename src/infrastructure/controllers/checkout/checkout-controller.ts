@@ -6,10 +6,7 @@ export default class CheckOutController {
     public async Post (req: Request, res: Response) {
         try {
             const db = new CheckOutDb()
-            await db.Initialize()
-            // const clientsDb = new ClientsDb()
-
-            // await clientsDb.Initialize()
+            await db.Initialize();
     
             const data: ValidatorDto = req.body;
             

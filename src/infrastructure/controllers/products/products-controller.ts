@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import ProductsDb from "../../db/products-db";
-import ProductValidator from "../../validators/products/products-validator";
+import ProductValidator, { ReqProps } from "../../validators/products/products-validator";
 
 export default class ProductsController {
     db: ProductsDb;
@@ -12,15 +12,16 @@ export default class ProductsController {
 
                 await db.Initialize()
 
-                const { name, description, purchasePrice, stock } = req.body;
+                const data: ReqProps= req.body;
 
-                const validate = new ProductValidator(name, description, purchasePrice, stock)
+                const validate = new ProductValidator(data)
 
                 const product = validate.Validate()
 
                 if(product) {
                     res.json({
                         id: product.id.id,
+                        productId: product.productId.id,
                         name: product.name,
                         description: product.description,
                         purchasePrice: product.purchasePrice,
@@ -30,6 +31,7 @@ export default class ProductsController {
                     })
                     console.log({
                         id: product.id.id,
+                        productId: product.productId.id,
                         name: product.name,
                         description: product.description,
                         purchasePrice: product.purchasePrice,

@@ -11,6 +11,9 @@ export class ProductModel extends Model {
   id: string;
 
   @Column({ allowNull: false })
+  productId: string;
+
+  @Column({ allowNull: false })
   name: string;
 
   @Column({ allowNull: false })

@@ -40,6 +40,7 @@ describe("ProductRepository test", () => {
     });
 
     expect(productProps.id.id).toEqual(productDb.id);
+    expect(typeof productDb.productId).toBe('string');
     expect(productProps.name).toEqual(productDb.name);
     expect(productProps.description).toEqual(productDb.description);
     expect(productProps.purchasePrice).toEqual(productDb.purchasePrice);
@@ -51,6 +52,7 @@ describe("ProductRepository test", () => {
 
     ProductModel.create({
       id: "1",
+      productId: "1",
       name: "Product 1",
       description: "Product 1 description",
       purchasePrice: 100,
@@ -62,6 +64,7 @@ describe("ProductRepository test", () => {
     const product = await productRepository.find("1");
 
     expect(product.id.id).toEqual("1");
+    expect(product.productId.id).toBe('1');
     expect(product.name).toEqual("Product 1");
     expect(product.description).toEqual("Product 1 description");
     expect(product.purchasePrice).toEqual(100);
