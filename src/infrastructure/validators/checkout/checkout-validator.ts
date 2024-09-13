@@ -1,6 +1,7 @@
 import CheckOutFactory from "../../../modules/checkout/factory/checkout.factory";
 import { PlaceOrderOutputDto } from "../../../modules/checkout/usecase/place-order/place-order.dto";
 
+
 export interface PlaceOrderInputDto {
     clientId: string;
     products: {

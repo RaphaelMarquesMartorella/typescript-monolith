@@ -17,14 +17,15 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
       allowNull: false
     },
     purchasePrice: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     salesPrice: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
-    }, stock: {
-      type: DataTypes.NUMBER,
+    },
+    stock: {
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     createdAt: {
@@ -35,9 +36,9 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
       type: DataTypes.DATE,
       allowNull: false
     }
-  })
+  });
 };
 
 export const down: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
-  await sequelize.getQueryInterface().dropTable('products')
-} 
+  await sequelize.getQueryInterface().dropTable('products');
+};

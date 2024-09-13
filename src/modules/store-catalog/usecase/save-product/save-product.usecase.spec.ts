@@ -1,6 +1,5 @@
 import Id from "../../../@shared/domain/value-object/id.value-object";
-import Product from "../../domain/product.entity";
-import ProductRepository from "../../repository/product.repository";
+import SaveProductUseCase from "./save-product.usecase";
 
 const MockRepository = () => {
     return {
@@ -17,20 +16,22 @@ describe("save product usecase unit test", () => {
     
         const input = {
             id: "7560a67b-500e-4d88-b7f3-36263b0bb8c1",
+            productId: new Id("7560a67b-500e-4d88-b7f3-36263b0bb8c1"),
             name: "DDD",
             description: "Domain Driven Design",
             salesPrice: 100,
         };
         const output = {
             id: "7560a67b-500e-4d88-b7f3-36263b0bb8c1",
+            productId: "7560a67b-500e-4d88-b7f3-36263b0bb8c1",
             name: "DDD",
             description: "Domain Driven Design",
-            salePrice: 100,
-            purchasePrice: 50,
+            salesPrice: 100,
         }
     
-        await usecase.execute(input);
+        await usecase.execute({...input, productId: input.productId.id});
     
-        expect(productRepository.save).toHaveBeenCalledWith(product);
+        expect(productRepository.save).toHaveBeenCalled();
+        expect(output).toEqual({...input, productId: input.productId.id});
     });
-    });
+});

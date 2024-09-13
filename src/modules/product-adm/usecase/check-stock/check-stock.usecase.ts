@@ -1,4 +1,5 @@
 import ProductGateway from "../../gateway/product.gateway";
+import { ProductAdmModel } from "../../repository/product.model";
 import { CheckStockInputDto, CheckStockOutputDto } from "./check-stock.dto";
 
 export default class CheckStockUseCase {
@@ -9,9 +10,9 @@ export default class CheckStockUseCase {
   }
 
   async execute(input: CheckStockInputDto): Promise<CheckStockOutputDto> {
-    const product = await this._productRepository.find(input.productId);
+    const product = await ProductAdmModel.findOne({where: {productId: input.productId}});
     return {
-      productId: product.id.id,
+      productId: product.id,
       stock: product.stock,
     };
   }

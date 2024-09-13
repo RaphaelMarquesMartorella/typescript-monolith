@@ -5,6 +5,7 @@ import InvoiceFacadeInterface from "../../../invoice/facade/invoice.facade.inter
 import PaymentFacadeInterface from "../../../payment/facade/facade.interface";
 import ProductAdmFacadeInterface from "../../../product-adm/facade/product-adm.facade.interface";
 import StoreCatalogFacadeInterface from "../../../store-catalog/facade/store-catalog.facade.interface";
+import { StoreProductModel } from "../../../store-catalog/repository/product.model";
 import Client from "../../domain/client.entity";
 import Order from "../../domain/order.entity";
 import Product from "../../domain/product.entity";
@@ -41,6 +42,8 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
     if (!client) {
       throw new Error("Client not found");
     }
+    console.log("input", input);
+    
     await this.validateProducts(input);
 
     const products = await Promise.all(
@@ -58,6 +61,7 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
       client: myClient,
       products,
     });
+    
 
     const payment = await this._paymentFacade.process({
       orderId: order.id.id,
@@ -66,7 +70,7 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
 
     const invoice =
       payment.status === "approved"
-        ? await this._invoiceFacade.create({
+        ? await this._invoiceFacade.generate({
             name: client.name,
             document: client.document,
             street: client.street,
@@ -86,7 +90,7 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
         : null;
 
     payment.status === "approved" && order.approved();
-    this._repository.addOrder(order);
+    await this._repository.addOrder(order);
 
     return {
       id: order.id.id,
@@ -119,7 +123,7 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
   }
 
   private async getProduct(productId: string): Promise<Product> {
-    const product = await this._catalogFacade.find({ id: productId });
+    const product = await StoreProductModel.findOne({ where: { productId: productId } });
     if (!product) {
       throw new Error("Product not found");
     }

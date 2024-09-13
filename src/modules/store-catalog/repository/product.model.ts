@@ -1,26 +1,25 @@
-import { Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
-import { ProductModel as ProductAdmModel } from "../../product-adm/repository/product.model";
+import { Column, Model, PrimaryKey, Table} from "sequelize-typescript";
 
 @Table({
   modelName: "store-catalog-products", 
-  tableName: "products",
+  tableName: "products-store-catalog",
   timestamps: false,
 })
-export default class ProductModel extends Model {
+export class StoreProductModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
-  id: string;
-
-  @ForeignKey(() => ProductAdmModel)
-  @Column({ allowNull: false })
-  productId: string;
+  declare id: string;
 
   @Column({ allowNull: false })
-  name: string;
+  declare productId: string;
 
   @Column({ allowNull: false })
-  description: string;
+  declare name: string;
 
   @Column({ allowNull: false })
-  salesPrice: number;
+  declare description: string;
+
+  @Column({ allowNull: false })
+  declare salesPrice: number;
+  price: number;
 }

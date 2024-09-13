@@ -1,5 +1,5 @@
 import Id from "../../../@shared/domain/value-object/id.value-object";
-import Address from "../../../invoice/domain/address.vo";
+import Address from "../../../invoice/domain/value-object/address";
 import Client from "../../domain/client.entity";
 import FindClientUseCase from "./find-client.usecase";
 
@@ -8,14 +8,14 @@ const client = new Client({
   name: "Client 1",
   email: "x@x.com",
   document: "123456789",
-  address: new Address({
-    street: "Address 1",
-    number: "1",
-    complement: "Complement 1",
-    city: "City 1",
-    state: "State 1",
-    zipCode: "ZipCode 1",
-  }),
+  address: new Address(
+    "Street 1",
+    "123",
+    "Complement 1",
+    "City 1",
+    "State 1",
+    "12345678"
+  ),
 });
 
 const MockRepository = () => {

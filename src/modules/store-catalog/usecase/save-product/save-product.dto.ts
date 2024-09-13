@@ -1,5 +1,6 @@
 export interface SaveProductInputDto {
     id: string;
+    productId: string;
     name: string;
     description: string;
     salesPrice: number;
@@ -7,9 +8,8 @@ export interface SaveProductInputDto {
 
 export interface SaveProductOutputDto {
     id: string;
+    productId: string;
     name: string;
     description: string;
     salesPrice: number;
-    purchasePrice: number;
-    stock: number;
 }

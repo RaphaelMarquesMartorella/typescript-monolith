@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize-typescript";
-import Id from "../../@shared/domain/value-object/id.value-object";
-import Address from "../../invoice/domain/address.vo";
 import Client from "../domain/client.entity";
 import { ClientModel } from "./client.model";
 import ClientRepository from "./client.repository";
+import Id from "../../@shared/domain/value-object/id.value-object";
+import Address from "../../invoice/domain/value-object/address";
 
 describe("ClientRepository test", () => {
   let sequelize: Sequelize;
@@ -30,14 +30,13 @@ describe("ClientRepository test", () => {
       name: "Client 1",
       email: "x@x.com",
       document: "123456789",
-      address: new Address({
-        street: "Address 1",
-        number: "1",
-        complement: "Complement 1",
-        city: "City 1",
-        state: "State 1",
-        zipCode: "ZipCode 1",
-      }),
+      address: new Address("Address 1", 
+        "1", 
+        "Complement 1", 
+        "City 1", 
+        "State 1", 
+        "ZipCode 1"
+),
     });
 
     const repository = new ClientRepository();
@@ -45,7 +44,7 @@ describe("ClientRepository test", () => {
 
     const clientDb = await ClientModel.findOne({
       where: { id: client.id.id },
-    });
+    });    
 
     expect(clientDb).toBeDefined();
     expect(clientDb.id).toBe(client.id.id);
@@ -66,14 +65,13 @@ describe("ClientRepository test", () => {
       name: "Client 1",
       email: "x@x.com",
       document: "123456789",
-      address: new Address({
-        street: "Address 1",
-        number: "1",
-        complement: "Complement 1",
-        city: "City 1",
-        state: "State 1",
-        zipCode: "ZipCode 1",
-      }),
+      address: new Address("Address 1", 
+        "1", 
+        "Complement 1", 
+        "City 1", 
+        "State 1", 
+        "ZipCode 1"
+),
     });
 
     const repository = new ClientRepository();

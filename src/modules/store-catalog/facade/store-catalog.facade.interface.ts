@@ -4,6 +4,7 @@ export interface FindStoreCatalogFacadeInputDto {
 
 export interface FindStoreCatalogFacadeOutputDto {
   id: string;
+  productId: string;
   name: string;
   description: string;
   salesPrice: number;
@@ -12,6 +13,7 @@ export interface FindStoreCatalogFacadeOutputDto {
 export interface FindAllStoreCatalogFacadeOutputDto {
   products: {
     id: string;
+    productId: string;
     name: string;
     description: string;
     salesPrice: number;

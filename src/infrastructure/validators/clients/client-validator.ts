@@ -1,7 +1,7 @@
 import Id from "../../../modules/@shared/domain/value-object/id.value-object";
 import Client from "../../../modules/client-adm/domain/client.entity";
 import ClientAdmFacadeFactory from "../../../modules/client-adm/factory/facade.factory";
-import Address from "../../../modules/invoice/domain/address.vo";
+import Address from "../../../modules/invoice/domain/value-object/address";
 
 type ClientProps = {
     id?: Id;
@@ -34,6 +34,7 @@ type AddClientInputDto = {
   }
 
 export default class ClientValidator {
+    private id: Id;
     private name: string;
     private document: string;
     private email: string;
@@ -47,7 +48,10 @@ export default class ClientValidator {
     private client: Client;
 
 
-    constructor(name: string, document:string, email: string, street: string, number: string, complement: string, city: string, state: string, zipCode: string) {
+    constructor(name: string, document:string, email: string, street: string, number: string, complement: string, city: string, state: string, zipCode: string, id?: Id) {
+        if(id) {
+            this.id = id
+        }
         this.name = name
         this.document = document
         this.email = email
@@ -70,12 +74,22 @@ export default class ClientValidator {
                 zipCode: this.zipCode
             }
 
-            const address = new Address(
-                addressProps
+            const address = new Address( 
+                addressProps.street,
+                addressProps.number,
+                addressProps.complement,
+                addressProps.city,
+                addressProps.state,
+                addressProps.zipCode
             )
 
             const clientProps: ClientProps = {
                 name: this.name, document:this.document, email: this.email, address, 
+            }
+            if(
+                this.id
+            ) {
+                clientProps.id = this.id
             }
 
             this.client = new Client(clientProps)

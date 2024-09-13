@@ -1,53 +1,51 @@
 import { Request, Response } from "express";
 import ClientsDb from "../../db/clients-db";
 import ClientValidator from "../../validators/clients/client-validator";
+import Id from "../../../modules/@shared/domain/value-object/id.value-object";
 
 export default class ClientsController {
     async Post (req: Request, res: Response): Promise<void> {
+        type ReqProps = {
+            id?: string;
+            name: string;
+            document: string;
+            email: string;
+            street: string;
+            number: string;
+            complement: string;
+            city: string;
+            state: string;
+            zipCode: string;
+        }
 
         try {
             const db = new ClientsDb()
 
             await db.Initialize()
             
-            const {
-                name,
-                document,
-                email,
-                street,
-                number,
-                complement,
-                city,
-                state,
-                zipCode
-            } = req.body
+            const data: ReqProps = req.body
 
-            const validate = new ClientValidator(name,
-                document,
-                email,
-                street,
-                number,
-                complement,
-                city,
-                state,
-                zipCode)
+            const validate = new ClientValidator(
+                data.name,
+                data.document,
+                data.email,
+                data.street,
+                data.number,
+                data.complement,
+                data.city,
+                data.state,
+                data.zipCode,
+                new Id(data.id),
+            )
 
                 const client = await validate.Validate()
 
         
                     res.json({
-                        id: client.id,
+                        id: client.id.id,
                         name: client.name,
-                        document: client.document,
                         email: client.email,
-                        address: {
-                            street: client.address.street,
-                            number: client.address.number,
-                            complement: client.address.complement,
-                            city: client.address.city,
-                            state: client.address.state,
-                            zipCode: client.address.zipCode,
-                        }
+                        address: client.address
                     })
                     
         } catch (error) {

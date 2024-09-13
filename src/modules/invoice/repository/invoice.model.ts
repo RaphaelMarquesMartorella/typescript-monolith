@@ -1,51 +1,46 @@
-import {
-  Column,
-  HasMany,
-  Model,
-  PrimaryKey,
-  Table,
-} from "sequelize-typescript";
-import { InvoiceItemModel } from "./item.model";
+import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { ProductModel } from "./product.model";
 
 @Table({
-  tableName: "invoices",
-  timestamps: false,
+  tableName: 'invoice',
+  timestamps: false
 })
 export class InvoiceModel extends Model {
+
   @PrimaryKey
   @Column({ allowNull: false })
-  id: string;
+  declare id: string
 
   @Column({ allowNull: false })
-  name: string;
+  declare name: string
 
   @Column({ allowNull: false })
-  document: string;
+  declare document: string
 
   @Column({ allowNull: false })
-  street: string;
+  declare street: string
 
   @Column({ allowNull: false })
-  number: string;
+  declare number: string
 
   @Column({ allowNull: false })
-  complement: string;
+  declare complement: string
 
   @Column({ allowNull: false })
-  city: string;
+  declare city: string
 
   @Column({ allowNull: false })
-  state: string;
+  declare state: string
 
   @Column({ allowNull: false })
-  zipcode: string;
+  declare zipcode: string
 
-  @HasMany(() => InvoiceItemModel)
-  items: InvoiceItemModel[];
-
-  @Column({ allowNull: false })
-  total: number;
+  @HasMany(() => ProductModel, { foreignKey: "invoiceId", as: "items"})
+  declare items: ProductModel[]
 
   @Column({ allowNull: false })
-  createdAt: Date;
+  createdAt: Date
+
+  @Column({ allowNull: false })
+  updatedAt: Date
 }

@@ -9,6 +9,7 @@ export default class FindProductUseCase {
 
     return {
       id: product.id.id,
+      productId: product.productId.id,
       name: product.name,
       description: product.description,
       salesPrice: product.salesPrice,

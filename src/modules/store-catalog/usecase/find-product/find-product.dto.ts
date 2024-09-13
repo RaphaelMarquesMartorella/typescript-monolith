@@ -4,6 +4,7 @@ export interface FindProductInputDto {
 
 export interface FindProductOutputDto {
   id: string;
+  productId: string;
   name: string;
   description: string;
   salesPrice: number;

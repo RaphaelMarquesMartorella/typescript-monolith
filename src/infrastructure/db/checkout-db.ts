@@ -1,10 +1,12 @@
 import { Sequelize } from "sequelize-typescript";
-import { ProductModel as ProductAdmModel } from "../../modules/product-adm/repository/product.model";
-import ProductModelDb from "../../modules/store-catalog/repository/product.model";
-import { migrator } from "../config-migrations/migrator";
+import { ProductAdmModel } from "../../modules/product-adm/repository/product.model";
 import { Umzug } from "umzug";
 import { ClientModel } from "../../modules/client-adm/repository/client.model";
 import OrderModel from "../../modules/checkout/repository/checkout.model";
+import TransactionModel from "../../modules/payment/repository/transaction.model";
+import { InvoiceModel } from "../../modules/invoice/repository/invoice.model";
+import { StoreProductModel } from "../../modules/store-catalog/repository/product.model";
+import { ProductModel } from "../../modules/invoice/repository/product.model";
 
 export default class CheckOutDb {
     sequelize: Sequelize;
@@ -16,11 +18,10 @@ export default class CheckOutDb {
         dialect: "sqlite",
         storage: "database.sqlite",
         logging: false,
+        sync: { force: false },
         });
             
-        this.sequelize.addModels([ClientModel, OrderModel, ProductAdmModel, ProductModelDb])
-        await this.sequelize.sync({ force: false });
-        this.migration = migrator(this.sequelize)
-        await this.migration.up()
+        this.sequelize.addModels([ClientModel, OrderModel, ProductAdmModel, StoreProductModel, TransactionModel, InvoiceModel, ProductModel]);
+        await this.sequelize.sync();
     }
 } 

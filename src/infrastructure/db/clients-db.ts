@@ -1,6 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
 import { ClientModel } from "../../modules/client-adm/repository/client.model";
-
 export default class ClientsDb {
     sequelize: Sequelize;
 
